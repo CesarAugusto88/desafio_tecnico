@@ -204,8 +204,12 @@ docker-compose run web python manage.py migrate
 
 ## Resoluções do desafio <a name = "resolucoes">:
 
-### 3 - Ambientes de dev, homologação e produção.
-#### Foram separado utilizando o pacote Python Decouple.
+### 1 - Crie autenticação de usuários e atribua os links aos usuários. :heavy_check_mark:
+
+### 2 - Crie um contador de acesso link e exiba para o usuários quando logado. :x: :question:
+
+### 3 - Ambientes de dev, homologação e produção. :white_check_mark:
+#### Os ambientes foram separado utilizando o pacote Python Decouple.
 #### Arquivo .env:
 ```
 SECRET_KEY=###%%%***Sua_Chave***%%%###
@@ -221,18 +225,25 @@ SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = config("DEBUG", default=False, cast=bool)
 ```
+ ---
+#### Obs.: Com esse pacote pode-se fazer configurações de senhas de banco de dados e IP de servidores.
+ ---
+### 4 - Crie o ambiente de dev baseado em docker. :heavy_check_mark:
+#### Ambiente de desenvolvimento foi utilizado doker.
 
-### Obs.: Com esse pacote pode-se fazer configurações de senhas de banco de dados e IP de servidores.
+### 5 - Crie um botão de relatório que o usuário consiga  imprimir o numero de acessos separado por dia da semana. :x:
+
+### 6 - Crie uma estrutura de deploy baseado em containers. :x: :question:
 
  ---
 
 ## Créditos <a name = "creditos">
 
 ### Tutorial desenvolvendo com django docker compose:
- - [Marcus Almeida](http://marcusalmeida.github.io/2016/desenvolvendo-com-django-docker-compose/ "title" target="_blank")
+ - [Marcus Almeida](http://marcusalmeida.github.io/2016/desenvolvendo-com-django-docker-compose/)
 
 ### Projeto dShortener - Um encurtador de URLs feito em Django:
- - [Douglas Miranda](https://github.com/douglasmiranda/dshortener "title" target="_blank")
+ - [Douglas Miranda](https://github.com/douglasmiranda/dshortener)
 
 ### Projeto E-commerce:
- - [Luiz Otávio](https://github.com/luizomf/django-simple-ecommerce "title" target="_blank")
+ - [Luiz Otávio](https://github.com/luizomf/django-simple-ecommerce)
