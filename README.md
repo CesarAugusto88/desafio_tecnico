@@ -229,10 +229,10 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 ## Créditos <a name = "creditos">
 
 ### Tutorial desenvolvendo com django docker compose:
- - [Marcus Almeida](http://marcusalmeida.github.io/2016/desenvolvendo-com-django-docker-compose/){:target="_blank"}
+ - [Marcus Almeida](http://marcusalmeida.github.io/2016/desenvolvendo-com-django-docker-compose/ "title" target="_blank")
 
 ### Projeto dShortener - Um encurtador de URLs feito em Django:
- - [Douglas Miranda](https://github.com/douglasmiranda/dshortener){:target="_blank"}
+ - [Douglas Miranda](https://github.com/douglasmiranda/dshortener "title" target="_blank")
 
 ### Projeto E-commerce:
- - [Luiz Otávio](https://github.com/luizomf/django-simple-ecommerce){:target="_blank"}
+ - [Luiz Otávio](https://github.com/luizomf/django-simple-ecommerce "title" target="_blank")
