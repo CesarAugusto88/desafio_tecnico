@@ -9,7 +9,9 @@
 - [Primeiros Passos](#getting_started)
 - [Uso](#usage)
 - [Contribuidores](#contributing)
-- [Fontes](#fontes)
+- [Instalações WSL](#instalacoes)
+- [Resoluções do desafio](#resolucoes)
+- [Créditos](#creditos)
 
  ---
 
@@ -93,7 +95,7 @@ python manage.py createsuperuser
 
  ---
 
-## Fontes <a name = "fontes"></a>
+## Instalações <a name = "instalacoes"></a>
 
 ### Instalação de pacotes do python 3:
 ```
@@ -146,7 +148,7 @@ sudo service docker start
 docker run hello-world
 ```
 
-### Mensagem:
+### Mensagem exibida:
 ```
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
@@ -176,10 +178,61 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
-## Tutorial desenvolvendo com django docker compose:
-![Marcus Almeida](http://marcusalmeida.github.io/2016/desenvolvendo-com-django-docker-compose/)
-
 ### Para construir o docker-compose com novos requirements:
 ```
+sudo service docker status
+sudo service docker stop
+sudo service docker start
 docker-compose build
+docker-compose up
 ```
+
+### Derrubar e subir docker:
+```
+docker-compose down
+docker-compose up
+```
+
+### Executar docker docker-compose e fazer migração no servidor:
+```
+sudo service docker start
+docker-compose build
+docker-compose run web python manage.py makemigrations
+docker-compose run web python manage.py migrate
+```
+ ---
+
+## Resoluções do desafio <a name = "resolucoes">:
+
+### 3 - Ambientes de dev, homologação e produção.
+#### Foram separado utilizando o pacote Python Decouple.
+#### Arquivo .env:
+```
+SECRET_KEY=###%%%***Sua_Chave***%%%###
+DEBUG=True
+```
+ ---
+## DEBUG para produção deve ser False
+ ---
+
+### Configuração do settings.py:
+```
+SECRET_KEY = config("SECRET_KEY")
+
+DEBUG = config("DEBUG", default=False, cast=bool)
+```
+
+### Obs.: Com esse pacote pode-se fazer configurações de senhas de banco de dados e IP de servidores.
+
+ ---
+
+## Créditos <a name = "creditos">
+
+### Tutorial desenvolvendo com django docker compose:
+ - [Marcus Almeida](http://marcusalmeida.github.io/2016/desenvolvendo-com-django-docker-compose/){:target="_blank"}
+
+### Projeto dShortener - Um encurtador de URLs feito em Django:
+ - [Douglas Miranda](https://github.com/douglasmiranda/dshortener){:target="_blank"}
+
+### Projeto E-commerce:
+ - [Luiz Otávio](https://github.com/luizomf/django-simple-ecommerce){:target="_blank"}

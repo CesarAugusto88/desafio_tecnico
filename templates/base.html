@@ -7,10 +7,15 @@
 </head>
 
 <body>
+    {% include 'parciais/_nav.html' %}
 
-    {% include 'parciais/_messages.html' %}
-    {% block conteudo %}{% endblock %}
-
+    <main class="container mt-4 mb-4">
+        
+        {% block css %}{% endblock %}
+        {% include 'parciais/_messages.html' %}
+        {% block conteudo %}{% endblock %}
+        {% block js %}{% endblock %}
+    </main>
 
     {% include 'parciais/_footer.html' %}
 
