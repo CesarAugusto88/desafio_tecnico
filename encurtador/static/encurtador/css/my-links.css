@@ -1,0 +1,46 @@
+#my-links-container h1{
+    font-size:18px;
+    margin-bottom: 20px;
+}
+
+#my-links-container h1 small{
+    color: #888;
+    font-size:14px;
+    margin-left: 5px;
+}
+
+#my-links-container{
+    margin-top: 40px;
+}
+
+#my-links-container a{
+    color:#999999;
+    text-decoration:none;
+}
+
+#my-links-container .shortened-url{
+    color: #333;
+    font-weight:bold;
+}
+
+#my-links-container .shortened-url:hover{
+    color: #333;
+}
+
+.paginacao-global{
+    margin: 20px 0px 10px 0px;
+}
+
+#my-links li{
+    margin-bottom: 10px;
+}
+
+#my-links li input{
+    border: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    height: 16px;
+    padding: 2px;
+    width: 169px;
+}
