@@ -211,6 +211,7 @@ docker-compose run web python manage.py migrate
 #### Faltando redirecione para o link real.
 
 ### 2 - Crie um contador de acesso link e exiba para o usuários quando logado. :x: :question:
+#### Criado contador de atualizações de perfil. :heavy_check_mark: 
 
 ### 3 - Ambientes de dev, homologação e produção. :white_check_mark:
 #### Os ambientes foram separado utilizando o pacote Python Decouple.
