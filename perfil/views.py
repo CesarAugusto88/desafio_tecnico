@@ -6,7 +6,7 @@ from django.views import View
 from django.http import HttpResponseNotFound, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-import copy
+
 from django.urls import reverse_lazy
 
 from perfil.models import Perfil
@@ -156,7 +156,7 @@ class Criar(BasePerfil):
             if not self.perfil:
                 self.perfilform.cleaned_data['usuario'] = usuario
                 print(self.perfilform.cleaned_data)
-                perfil = models.Perfil(**self.perfilform.cleaned_data)
+                perfil = Perfil(**self.perfilform.cleaned_data)
                 perfil.save()
             else:
                 perfil = self.perfilform.save(commit=False)
@@ -212,32 +212,36 @@ class Login(View):
     def post(self, *args, **kwargs):
         username = self.request.POST.get('username')
         password = self.request.POST.get('password')
+        try:
+        
+            if not username or not password:
+                messages.error(
+                    self.request,
+                    'Usuário ou senha inválidos.'
+                )
+                return redirect('perfil:criar')
 
-        if not username or not password:
-            messages.error(
+            usuario = authenticate(
+                self.request, username=username, password=password)
+
+            if not usuario:
+                messages.error(
+                    self.request,
+                    'Usuário ou senha inválidos.'
+                )
+                return redirect('perfil:criar')
+            user_acessos = Perfil.objects.get(usuario=usuario.id)
+            # Conta acesso
+            user_acessos.acessos = user_acessos.acessos + 1
+            login(self.request, user=usuario)
+
+            messages.success(
                 self.request,
-                'Usuário ou senha inválidos.'
+                'Você está logado no sistema.'
             )
-            return redirect('perfil:criar')
-
-        usuario = authenticate(
-            self.request, username=username, password=password)
-
-        if not usuario:
-            messages.error(
-                self.request,
-                'Usuário ou senha inválidos.'
-            )
-            return redirect('perfil:criar')
-        user_acessos = Perfil.objects.get(usuario=usuario.id)
-        # Conta acesso
-        user_acessos.acessos = user_acessos.acessos + 1
-        login(self.request, user=usuario)
-
-        messages.success(
-            self.request,
-            'Você está logado no sistema.'
-        )
+        except Exception:
+            return HttpResponseNotFound(
+                            'Erro: <h1>Você é um Administrador</h1>')
         return redirect('/')
 
 
