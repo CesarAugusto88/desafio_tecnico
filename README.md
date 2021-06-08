@@ -219,6 +219,8 @@ docker-compose run web python manage.py migrate
 ```
 SECRET_KEY=###%%%***Sua_Chave***%%%###
 DEBUG=True
+LOCAL=127.0.0.1
+IP=192.168.0.0
 ```
  ---
 ## DEBUG para produção deve ser False
@@ -229,6 +231,10 @@ DEBUG=True
 SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = config("DEBUG", default=False, cast=bool)
+
+LOCAL = config("LOCAL")
+
+IP = config("IP")
 ```
  ---
 #### Obs.: Com esse pacote pode-se fazer configurações de senhas de banco de dados e IP de servidores.
