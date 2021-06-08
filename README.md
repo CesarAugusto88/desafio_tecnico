@@ -1,9 +1,7 @@
 # Projeto Desafio Técnico
 ### Autor: Cesar Costa
 
- ---
-
-![alt-text](https://github.com/CesarAugusto88/desafio_tecnico/blob/main/gif/link.gif)
+![alt-text](https://github.com/CesarAugusto88/desafio_tecnico/blob/main/print%20gif/Webp.net-gifmaker.gif)
 
  ---
 
