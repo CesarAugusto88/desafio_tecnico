@@ -235,7 +235,7 @@ class Login(View):
         except Exception:
             return HttpResponseNotFound(
                             '''Erro: <h1>Você é um Administrador</h1>
-                               Entre com um susuário comum.''')
+                               Entre com um usuário comum.''')
         login(self.request, user=usuario)
 
         messages.success(
