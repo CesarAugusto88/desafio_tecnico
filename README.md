@@ -3,6 +3,10 @@
 
  ---
 
+![alt-text](https://github.com/CesarAugusto88/desafio_tecnico/blob/main/gif/link.gif)
+
+ ---
+
 ## Conteúdo
 
 - [Sobre](#about)
