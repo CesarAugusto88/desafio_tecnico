@@ -234,6 +234,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 #### Ambiente de desenvolvimento foi utilizado doker.
 
 ### 5 - Crie um botão de relatório que o usuário consiga  imprimir o numero de acessos separado por dia da semana. :x:
+#### Feito somente contagem de número de atualizações de perfil.
 
 ### 6 - Crie uma estrutura de deploy baseado em containers. :x: :question:
 
