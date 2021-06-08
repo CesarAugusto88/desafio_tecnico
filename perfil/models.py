@@ -52,7 +52,7 @@ class Perfil(models.Model):
         )
     )
 
-    acessos = models.PositiveIntegerField(default=1, blank=True, null=True)
+    acessos = models.PositiveIntegerField(default=0, blank=True, null=True)
 
     def __str__(self):
         return f'{self.usuario}'
