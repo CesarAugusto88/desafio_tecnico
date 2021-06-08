@@ -24,7 +24,7 @@
 ### Pré-requisitos
 
 #### Instalação dos pré-requisitos do projeto para executar em sua máquina deve ser feita com Python 3 e o ambiente virtualenv.
-#### Porém, esse projeto pode ser feito utilizando Docker. Ao final desse README têm links para rodar o projeto utilizando docker no WLS.
+#### Porém, esse projeto foi feito utilizando Docker. Ao final desse README têm links para rodar o projeto utilizando docker.
 
 #### Clonar o repositório e entrar no diretório:
 
@@ -56,7 +56,7 @@ venv\Scripts\activate
 #### Comando para instalar os requisitos do projeto:
 
 ```
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 ```
 
 ## Uso <a name = "usage"></a>
@@ -204,7 +204,9 @@ docker-compose run web python manage.py migrate
 
 ## Resoluções do desafio <a name = "resolucoes">:
 
-### 1 - Crie autenticação de usuários e atribua os links aos usuários. :heavy_check_mark:
+### 1 - Crie autenticação de usuários e atribua os links aos usuários. :heavy_check_mark: :question:
+
+#### Faltando redirecione para o link real.
 
 ### 2 - Crie um contador de acesso link e exiba para o usuários quando logado. :x: :question:
 

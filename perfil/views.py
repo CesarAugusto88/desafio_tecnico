@@ -1,19 +1,69 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
+from django.views.generic.edit import CreateView
 from django.views import View
-from django.http import HttpResponse
+from django.http import HttpResponseNotFound, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import copy
+from django.urls import reverse_lazy
 
-from . import models
-from . import forms
+from perfil.models import Perfil
+from perfil.forms import UserForm, PerfilForm
 
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
+# from perfil.utils import render_to_pdf
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class ProgressaoAcesso(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('perfil:criar')
+    model = Perfil
+    fields = ['usuario', 'acessos']
+    template_name = 'perfil/acessos.html'
+    success_url = reverse_lazy('')  # listar-progressao
+
+    def form_valid(self, form):
+
+        # Antes do super não foi criado o objeto nem salvo no banco
+        form.instance.usuario = self.request.user
+
+        url = super().form_valid(form)
+
+        self.object.acessos += 1
+        self.object.save()
+
+        return url
+
+
+# Gera relatorio pdf
+class GenerateRelatorioPdfAcessos(View):
+    """Gerar pdf de 'relatorio.html' de acessos."""
+    def get(self, request, *args, **kwargs):
+        context = {}
+        usuario = request.user
+        try:
+            user_acessos = Perfil.objects.get(usuario=usuario)
+        except Exception:
+            return HttpResponseNotFound(
+                            'Erro: <h1>Você é um Administrador</h1>')
+        if user_acessos:
+            context = {
+                'acessos': user_acessos.acessos
+            }
+            # pdf = render_to_pdf('relatorio.html', context)
+
+        else:
+            return HttpResponseNotFound('<h1>Page not found</h1>')
+        # return HttpResponse(pdf, content_type='perfil/pdf')
+        return render(request, "perfil/relatorio.html", context)
+
+
+# Projeto encurtador de links com django
 class LoginRequiredMixin(object):
     """
         Você pode conferir a explicação da criação desse Mixin em um post meu:
@@ -30,32 +80,30 @@ class BasePerfil(View):
     def setup(self, *args, **kwargs):
         super().setup(*args, **kwargs)
 
-        self.carrinho = copy.deepcopy(self.request.session.get('carrinho', {}))
-
         self.perfil = None
 
         if self.request.user.is_authenticated:
-            self.perfil = models.Perfil.objects.filter(
+            self.perfil = Perfil.objects.filter(
                 usuario=self.request.user
             ).first()
 
             self.contexto = {
-                'userform': forms.UserForm(
+                'userform': UserForm(
                     data=self.request.POST or None,
                     usuario=self.request.user,
                     instance=self.request.user,
                 ),
-                'perfilform': forms.PerfilForm(
+                'perfilform': PerfilForm(
                     data=self.request.POST or None,
                     instance=self.perfil
                 )
             }
         else:
             self.contexto = {
-                'userform': forms.UserForm(
+                'userform': UserForm(
                     data=self.request.POST or None
                 ),
-                'perfilform': forms.PerfilForm(
+                'perfilform': PerfilForm(
                     data=self.request.POST or None
                 )
             }
@@ -90,7 +138,7 @@ class Criar(BasePerfil):
         first_name = self.userform.cleaned_data.get('first_name')
         last_name = self.userform.cleaned_data.get('last_name')
 
-        # Usuário logado
+        # Usuário logado - alterações
         if self.request.user.is_authenticated:
             usuario = get_object_or_404(
                 User, username=self.request.user.username)
@@ -113,6 +161,7 @@ class Criar(BasePerfil):
             else:
                 perfil = self.perfilform.save(commit=False)
                 perfil.usuario = usuario
+                perfil.acessos += 1
                 perfil.save()
 
         # Usário não logado (novo)
@@ -135,7 +184,6 @@ class Criar(BasePerfil):
             if autentica:
                 login(self.request, user=usuario)
 
-        self.request.session['carrinho'] = self.carrinho
         self.request.session.save()
 
         messages.success(
@@ -158,6 +206,9 @@ class Atualizar(View):
 
 
 class Login(View):
+    def get(self, request, *args, **kwargs):
+        usuario = request.user
+
     def post(self, *args, **kwargs):
         username = self.request.POST.get('username')
         password = self.request.POST.get('password')
@@ -178,7 +229,9 @@ class Login(View):
                 'Usuário ou senha inválidos.'
             )
             return redirect('perfil:criar')
-
+        user_acessos = Perfil.objects.get(usuario=usuario.id)
+        # Conta acesso
+        user_acessos.acessos = user_acessos.acessos + 1
         login(self.request, user=usuario)
 
         messages.success(

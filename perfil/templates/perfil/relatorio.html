@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}Acessos | {% endblock %}
+
+{% block conteudo %}
+
+<h2>Acessos</h2>
+<p></p>
+<div class="row">
+    
+    {% if request.user.is_authenticated %}
+
+    <div class='wrapper'>
+        <div class='header'>
+        <p class='title'>Relatório de número de  atualizações de perfil.</p>
+        </div>
+        <div class='details'>
+            Data: {% now "d/m/Y" %} <br>
+            Usuário: {{ user }} <br>
+            <hr class='hrItem' />
+        </div>
+
+        <div>
+            <label>Número de atualizações de perfil:
+            {{ acessos }}
+            </label>
+        </p>
+        </div>
+
+    </div>
+
+    {% else %}
+        <h4>Faça o login para ver os acessos</h4>
+    {% endif %}
+
+    <div class="col-lg mt-3">
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Retatório de número de acessos</title>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+    </head>
+    <body>
+         {load my_filters}
+        
+        <div class='wrapper'>
+            <div class='header'>
+		    <p class='title'>Relatório de número de acessos separado por dia da semana.</p>
+            </div>
+            <div class='details'>
+                Data: {% now "jS F Y H:i" %} <br>
+                Usuário: {{ usuario.nome }} <br>
+                <hr class='hrItem' />
+            </div>
+            <div class="pure-u-1">
+                <table class="pure-table pure-table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Dia</th>
+                        <th>Data e hora</th>
+                        <th>Usuário</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for u in usuario %}
+                    <tr style="text-align: center;">
+                        <td>{{ u.dia }}</td>
+                        <td>{{ u.data_hora }}</td>
+                        <td>{{ u.usuario }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <hr class='hrItem' />
+                <table class="pure-table pure-table-bordered">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="text-align: center;">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class='details'>
+                <hr class='hrItem' />
+            </div>
+        </div>
+    </body>
+</html>-->
+
+
+

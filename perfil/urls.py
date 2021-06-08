@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 app_name = 'perfil'
@@ -8,4 +8,7 @@ urlpatterns = [
     path('atualizar/', views.Atualizar.as_view(), name='atualizar'),
     path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
+    path('acessos/', views.ProgressaoAcesso.as_view(), name='acessos'),
+    # re_path(r'^pdf/$', views.GenerateRelatorioPdfAcessos.as_view(), name="relatorio"),
+    path('relatorio/', views.GenerateRelatorioPdfAcessos.as_view(), name="relatorio"),
 ]

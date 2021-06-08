@@ -52,8 +52,14 @@ class Perfil(models.Model):
         )
     )
 
+    acessos = models.PositiveIntegerField(default=1, blank=True, null=True)
+
     def __str__(self):
         return f'{self.usuario}'
+    
+    def get_acessos(self):
+        self.acessos += 1
+        return self.acessos
 
     def clean(self):
         error_messages = {}

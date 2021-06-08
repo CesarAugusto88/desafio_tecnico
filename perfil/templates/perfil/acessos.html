@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}Acessos | {% endblock %}
+
+{% block conteudo %}
+
+<h2>Acessos</h2>
+
+<div class="row">
+    
+    {% if request.user.is_authenticated %}
+        <div>
+            <p>Usuário: {{ user }}</p>
+        </div>
+        <div class="container">
+            <a class="btn btn-outline-info" href="{% url 'perfil:relatorio' %}">
+                Gerar Relatório
+            </a>
+        </div>
+
+    {% else %}
+        <h4>Faça o login para ver os acessos</h4>
+    {% endif %}
+
+</div>
+
+{% endblock %}
