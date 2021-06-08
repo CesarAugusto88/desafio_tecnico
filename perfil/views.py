@@ -241,7 +241,9 @@ class Login(View):
             )
         except Exception:
             return HttpResponseNotFound(
-                            'Erro: <h1>Você é um Administrador</h1>')
+                            '''Erro: <h1>Você é um Administrador.
+                            Faça um cadastro de usuário comum.</h1>
+                            ''')
         return redirect('/')
 
 
