@@ -213,7 +213,6 @@ class Login(View):
         username = self.request.POST.get('username')
         password = self.request.POST.get('password')
         try:
-        
             if not username or not password:
                 messages.error(
                     self.request,
@@ -233,17 +232,17 @@ class Login(View):
             user_acessos = Perfil.objects.get(usuario=usuario.id)
             # Conta acesso
             user_acessos.acessos = user_acessos.acessos + 1
-            login(self.request, user=usuario)
-
-            messages.success(
-                self.request,
-                'Você está logado no sistema.'
-            )
         except Exception:
             return HttpResponseNotFound(
-                            '''Erro: <h1>Você é um Administrador.
-                            Faça um cadastro de usuário comum.</h1>
-                            ''')
+                            '''Erro: <h1>Você é um Administrador</h1>
+                               Entre com um usuário comum.''')
+        login(self.request, user=usuario)
+
+        messages.success(
+            self.request,
+            'Você está logado no sistema.'
+        )
+        
         return redirect('/')
 
 

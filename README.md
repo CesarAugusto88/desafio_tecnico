@@ -219,6 +219,7 @@ docker-compose run web python manage.py migrate
 ```
 SECRET_KEY=###%%%***Sua_Chave***%%%###
 DEBUG=True
+
 LOCAL=127.0.0.1
 IP=192.168.0.0
 ```
@@ -229,11 +230,9 @@ IP=192.168.0.0
 ### Configuração do settings.py:
 ```
 SECRET_KEY = config("SECRET_KEY")
-
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 LOCAL = config("LOCAL")
-
 IP = config("IP")
 ```
  ---
