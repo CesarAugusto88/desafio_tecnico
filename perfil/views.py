@@ -156,7 +156,7 @@ class Criar(BasePerfil):
             if not self.perfil:
                 self.perfilform.cleaned_data['usuario'] = usuario
                 print(self.perfilform.cleaned_data)
-                perfil = models.Perfil(**self.perfilform.cleaned_data)
+                perfil = Perfil(**self.perfilform.cleaned_data)
                 perfil.save()
             else:
                 perfil = self.perfilform.save(commit=False)
@@ -242,6 +242,7 @@ class Login(View):
             self.request,
             'Você está logado no sistema.'
         )
+        
         return redirect('/')
 
 
