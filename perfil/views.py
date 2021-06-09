@@ -25,7 +25,7 @@ class ProgressaoAcesso(LoginRequiredMixin, CreateView):
     model = Perfil
     fields = ['usuario', 'acessos']
     template_name = 'perfil/acessos.html'
-    success_url = reverse_lazy('')  # listar-progressao
+    success_url = reverse_lazy('acessos')  # listar-progressao
 
     def form_valid(self, form):
 
@@ -34,7 +34,6 @@ class ProgressaoAcesso(LoginRequiredMixin, CreateView):
 
         url = super().form_valid(form)
 
-        self.object.acessos += 1
         self.object.save()
 
         return url
@@ -48,6 +47,7 @@ class GenerateRelatorioPdfAcessos(View):
         usuario = request.user
         try:
             user_acessos = Perfil.objects.get(usuario=usuario)
+
         except Exception:
             return HttpResponseNotFound(
                             'Erro: <h1>Você é um Administrador</h1>')
@@ -197,7 +197,6 @@ class Criar(BasePerfil):
         )
 
         return redirect('/')
-        return self.renderizar
 
 
 class Atualizar(View):
@@ -206,10 +205,7 @@ class Atualizar(View):
 
 
 class Login(View):
-    def get(self, request, *args, **kwargs):
-        usuario = request.user
-
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         username = self.request.POST.get('username')
         password = self.request.POST.get('password')
         try:
@@ -222,6 +218,11 @@ class Login(View):
 
             usuario = authenticate(
                 self.request, username=username, password=password)
+            if usuario:
+                # Contador acessos de login do user
+                user_acessos = Perfil.objects.get(usuario=usuario)
+                user_acessos.acessos += 1
+                user_acessos.save()
 
             if not usuario:
                 messages.error(
@@ -229,9 +230,7 @@ class Login(View):
                     'Usuário ou senha inválidos.'
                 )
                 return redirect('perfil:criar')
-            user_acessos = Perfil.objects.get(usuario=usuario.id)
-            # Conta acesso
-            user_acessos.acessos = user_acessos.acessos + 1
+
         except Exception:
             return HttpResponseNotFound(
                             '''Erro: <h1>Você é um Administrador</h1>
@@ -242,7 +241,7 @@ class Login(View):
             self.request,
             'Você está logado no sistema.'
         )
-        
+
         return redirect('/')
 
 

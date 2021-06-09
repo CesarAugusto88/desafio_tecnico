@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-from . import util
+from .util import UUIDCurto
 
 
 class LinkManager(models.Manager):
@@ -13,11 +13,12 @@ class LinkManager(models.Manager):
 
 
 class Link(models.Model):
-    handler = util.UUIDCurto()
+    handler = UUIDCurto()
     url = models.URLField()
     criacao = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     objects = LinkManager()
+    # acessos = models.PositiveIntegerField(default=0)
 
     @property
     def uuid(self):
