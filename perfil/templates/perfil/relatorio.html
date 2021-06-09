@@ -6,14 +6,14 @@
 {% block conteudo %}
 
 <h2>Acessos</h2>
-<p></p>
+
 <div class="row">
     
     {% if request.user.is_authenticated %}
 
     <div class='wrapper'>
         <div class='header'>
-        <p class='title'>Relatório de número de  atualizações de perfil.</p>
+        <p class='title'>Relatório de número de acessos no login do sistema.</p>
         </div>
         <div class='details'>
             Data: {% now "d/m/Y" %} <br>
@@ -22,10 +22,9 @@
         </div>
 
         <div>
-            <label>Número de atualizações de perfil:
+            <label>Número de acessos no login do sistema:
             {{ acessos }}
             </label>
-        </p>
         </div>
 
     </div>

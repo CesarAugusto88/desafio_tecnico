@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.forms import ModelForm, TextInput, URLField
-from . import models
+from .models import Link
 
 
 class EncurtarURLForm(ModelForm):
@@ -9,5 +9,5 @@ class EncurtarURLForm(ModelForm):
     }))
 
     class Meta:
-        model = models.Link
+        model = Link
         fields = ['usuario']

@@ -786,3 +786,4 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/python,django,pycharm,pycharm+iml,pycharm+all,sublimetext,visualstudio,visualstudiocode,jupyternotebooks
 */migrations/*
+.ven/*
